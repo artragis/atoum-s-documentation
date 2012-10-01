@@ -528,21 +528,90 @@ isInstanceOf vérifie qu'un objet est:
 
 ### dateTime
 
-This is the asserter dedicated to DateTime testing.
+Atoum vous propose une assertion dédié aux DateTime.
 
-It extends from the variable asserter : You can use every assertions of the variable asserter while testing a DateTime object.
+Il étend l'assertion de variable : vous pouvez utiliser toutes les assertions des variables pour les
+appliquer à l'objet DateTime.
 
 #### hasTimezone
+Vérifie que le fuseau horraire (DateTimeZone) de l'objet testé est celle qui est désirée. 
+Ce test se concentre sur le nom des fuseaux horaires.
 
+    $date = new \DateTime('now',new \DateTimeZone('Europe/Paris'));
+    $this->assert
+            ->DateTime($date)
+            ->hasTimezone(new \DateTimeZone('Europe/Paris'));//will pass
+
+    $this->assert
+            ->DateTime($date)
+            ->hasTimezone(new \DateTimeZone('UTC'));//Will fail
 #### isInYear
+Vérifie que l'objet testé se trouve dans l'année désirée.
 
+    $date = new \DateTime('2012-02-14',new \DateTimeZone('Europe/Paris'));
+    $this->assert
+            ->DateTime($date)
+            ->isInYear(2012);//will pass
+	$this->assert
+            ->DateTime($date)
+            ->isInYear('2012');//will pass
+	
+    $this->assert
+            ->DateTime($date)
+            ->isInYear(2013);//Will fail
+	$this->assert
+            ->DateTime($date)
+            ->isInYear(12);//Will fail
+			
+**Note** isInYear n'est pas sensible au type, un entier ou une chaîne de caractère passeront.
+**Note** une année à quatre chiffres est attendue.
 #### isInMonth
+Vérifie que l'objet testé se trouve dans le mois désiré.
+
+    $date = new \DateTime('2012-02-14',new \DateTimeZone('Europe/Paris'));
+    $this->assert
+            ->DateTime($date)
+            ->isInMonth(2);//will pass
+	$this->assert
+            ->DateTime($date)
+            ->isInMonth('2');//will pass
+	
+    $this->assert
+            ->DateTime($date)
+            ->isInMonth(3);//Will fail
+	
+			
+**Note** isInMonth n'est pas sensible au type, un entier ou une chaîne de caractère passeront.
+**Note** un mois sous forme de chiffres, sans les zéros initiaux est attendu.
 
 #### isInDay
+Vérifie que le jour du mois (de 1 à 31) est celui désiré.
+Vérifie que l'objet testé se trouve dans le mois désiré.
 
+    $date = new \DateTime('2012-02-04',new \DateTimeZone('Europe/Paris'));
+    $this->assert
+            ->DateTime($date)
+            ->isInDay(4);//will pass
+	$this->assert
+            ->DateTime($date)
+            ->isInDay('4');//will pass
+	
+    $this->assert
+            ->DateTime($date)
+            ->isInDay(3);//Will fail
+
+**Note** isInDay n'est pas sensible au type, un entier ou une chaîne de caractère passeront.
+**Note** un jour sous forme de chiffres, sans les zéros initiaux est attendu.			
 #### hasDate
+Vérifie que la date de l'objet testé est celle désirée.
+
+    $date = new \DateTime('2012-02-14',new \DateTimeZone('Europe/Paris'));
+    $this->assert
+            ->DateTime($date)
+            ->hasDate(2012,2,4);//will pass
 
 
+**Note** par défaut le mois et le jour sont nuls
 
 ### mysqlDateTime
 
